@@ -1,3 +1,3 @@
-const makeNegative = (num) => num < 0 ? num : -num
+const makeNegative = num => (num < 0 ? num : -num)
 
-console.log(makeNegative(5));   // Output: -5
+console.log(makeNegative(5)) // Output: -5

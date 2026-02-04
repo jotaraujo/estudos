@@ -1,4 +1,4 @@
-const timeConversion = (hour) => {
+const timeConversion = hour => {
   const timeArray = hour.split(':')
   const modifier = timeArray[2].slice(-2)
   let hours = parseInt(timeArray[0], 10)

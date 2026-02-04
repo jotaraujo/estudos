@@ -65,3 +65,5 @@ Este é um repositório pessoal de aprendizado. Sugestões, feedbacks e recomend
 **Última atualização**: Janeiro de 2026
 
 *"A prática deliberada e consistente é a chave para o domínio em programação."*
+
+
