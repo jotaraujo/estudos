@@ -16,14 +16,13 @@ Este repositório foi criado com o objetivo de centralizar exercícios e desafio
 
 ```
 exercises/
-├── backend/               # Projetos e exercícios de backend
-├── frontend/              # Projetos e exercícios de frontend
-│   └── frontend_mentor/   # Projetos do Frontend Mentor
+├── frontend-mentor        # Exercícios do Frontend Mentor
+├── react/                 # Exercícios de React.Js
 ├── grupo_de_estudos/      # Exercícios do grupo de estudos
 ├── logica/                # Exercícios de lógica de programação
 │   ├── codewars/          # Desafios da plataforma Codewars
 │   └── hackerrank/        # Desafios do HackerRank
-└── README.md             # Este arquivo
+└── README.md              # Este arquivo
 ```
 
 ## 🛠️ Tecnologias
@@ -62,7 +61,7 @@ Este é um repositório pessoal de aprendizado. Sugestões, feedbacks e recomend
 
 ---
 
-**Última atualização**: Janeiro de 2026
+**Última atualização**: Março de 2026
 
 *"A prática deliberada e consistente é a chave para o domínio em programação."*
 
