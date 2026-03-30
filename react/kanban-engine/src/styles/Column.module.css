@@ -1,0 +1,56 @@
+.column {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.column:hover {
+  box-shadow: var(--shadow);
+}
+
+.columnTodo {
+  border-top: 4px solid #f59e0b;
+}
+
+.columnInProgress {
+  border-top: 4px solid var(--accent);
+}
+
+.columnDone {
+  border-top: 4px solid #10b981;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-h);
+}
+
+.columnTodo .title {
+  color: #d97706;
+}
+
+.columnInProgress .title {
+  color: var(--accent);
+}
+
+.columnDone .title {
+  color: #059669;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}

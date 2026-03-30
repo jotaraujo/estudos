@@ -1,0 +1,19 @@
+.board {
+  width: 100%;
+  padding: 0 1.5rem 3rem;
+  box-sizing: border-box;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
