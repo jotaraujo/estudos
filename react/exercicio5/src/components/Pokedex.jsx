@@ -1,5 +1,6 @@
 import { useState } from "react"
-import useFetch from "../hooks/useFetch"
+import useFetch from "../hooks/UseFetch"
+
 
 const Pokedex = () => {
   const [pokemonId, setPokemonId] = useState(1)
