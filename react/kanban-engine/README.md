@@ -115,34 +115,6 @@ src/
 
 ---
 
-## 📖 Documentação do Projeto
-
-O projeto inclui **3 guias detalhados** em Markdown:
-
-### 1. **DRAG_DROP_GUIDE.md** 📚
-Introdução completa ao dnd-kit:
-- Arquitetura e componentes principais
-- Como funciona o sistema de drag & drop
-- Padrão de implementação no Kanban
-- Próximos passos opcionais
-
-### 2. **ANIMATIONS_GUIDE.md** 🎨
-Guia aprofundado sobre animações:
-- Como as animações funcionam (passo a passo)
-- Transform vs transition
-- GPU acceleration
-- Timeline e debugging
-- Conceitos de performance
-
-### 3. **DRAG_HANDLE_FIX.md** 🔧
-Explicação da solução para isolamento de drag:
-- Problema de conflito entre drag e botões
-- Padrão drag handle
-- Event propagation
-- Testes práticos
-
----
-
 ## 🚀 Como Rodar Localmente
 
 **Pré-requisitos:** Node.js 18+
