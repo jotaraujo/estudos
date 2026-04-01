@@ -24,6 +24,13 @@ Uma aplicação de gerenciamento de tarefas no estilo Kanban, construída com Re
 - ✨ **Visual feedback** — cards mudam opacidade e sombra durante drag
 - 🎯 **Collision detection** — detecta corretamente a coluna de destino
 
+### 🌓 Tema Claro e Escuro
+- 🌙 **Toggle de tema** com ícones animados (Moon/Sun)
+- 🎨 **Transições suaves** na mudança de cores (200ms)
+- 💾 **Persistência** da preferência de tema em localStorage
+- 🖥️ **Detecção automática** da preferência de sistema operacional
+- 🔄 **Manual override** — força o tema mesmo que o sistema use outro
+
 ### 🎮 Suporte a Múltiplos Inputs
 - 🖱️ **Mouse** — Drag & drop tradicional
 - 👉 **Touch** — Suporte completo para mobile/tablet
@@ -48,8 +55,9 @@ As tarefas são organizadas em **3 colunas horizontais**:
 | [React](https://react.dev/) | 19.2.4 | Biblioteca de UI |
 | [Vite](https://vitejs.dev/) | 8.0.1 | Bundler e servidor de desenvolvimento |
 | [dnd-kit](https://dndkit.com/) | 6.3.1 | Drag & drop moderno e acessível |
+| [lucide-react](https://lucide.dev/) | Latest | Ícones SVG (Moon, Sun) |
 | [CSS Modules](https://github.com/css-modules/css-modules) | - | Estilização com escopo local |
-| LocalStorage API | - | Persistência de dados |
+| LocalStorage API | - | Persistência de dados e preferências |
 | Context API | - | Compartilhamento de estado |
 
 ### Pacotes dnd-kit Instalados
@@ -70,17 +78,22 @@ As tarefas são organizadas em **3 colunas horizontais**:
 src/
 ├── index.css                    # Tokens CSS globais, dark mode e reset
 ├── main.jsx
-├── App.jsx
+├── App.jsx                      # Root component com header e tema
 ├── components/
 │   ├── KanbanBoard.jsx          # DndContext, sensores, estado das tarefas
 │   ├── Column.jsx               # Droppable container, filtra por status
 │   ├── TaskItem.jsx             # Sortable card com drag handle
-│   └── TaskForm.jsx             # Formulário para adicionar tarefas
+│   ├── TaskForm.jsx             # Formulário para adicionar tarefas
+│   └── ThemeToggle.jsx          # Toggle button com ícones Moon/Sun
+├── hooks/
+│   └── useTheme.js              # Hook customizado para gerenciar tema
 └── styles/
+    ├── App.module.css           # Header com layout flexbox
     ├── KanbanBoard.module.css
     ├── Column.module.css
     ├── TaskItem.module.css
-    └── TaskForm.module.css
+    ├── TaskForm.module.css
+    └── ThemeToggle.module.css   # Animações do toggle e ícones
 ```
 
 ---
@@ -95,6 +108,15 @@ src/
 - **Props e desestruturação**
 - **Renderização condicional**
 - **CSS Modules** — escopo local de estilos
+- **Custom Hooks** — `useTheme()` para reutilização de lógica de tema
+
+### Sistema de Tema
+- **CSS Custom Properties (variáveis CSS)** — tokens reutilizáveis
+- **data-* attributes** — manual override de tema
+- **matchMedia API** — detecção de preferência de sistema
+- **localStorage** — persistência de preferência do usuário
+- **CSS transitions** — animações suaves entre temas
+- **Ícones dinâmicos** — lucide-react importados condicionalmente
 
 ### Drag & Drop com dnd-kit
 - **DndContext** — configuração de sensores e detecção de colisão
@@ -112,34 +134,6 @@ src/
 - **will-change** — otimização de performance
 - **Lazy initialization** — leitura eficiente do localStorage
 - **Collision detection** — closestCorners algorithm
-
----
-
-## 📖 Documentação do Projeto
-
-O projeto inclui **3 guias detalhados** em Markdown:
-
-### 1. **DRAG_DROP_GUIDE.md** 📚
-Introdução completa ao dnd-kit:
-- Arquitetura e componentes principais
-- Como funciona o sistema de drag & drop
-- Padrão de implementação no Kanban
-- Próximos passos opcionais
-
-### 2. **ANIMATIONS_GUIDE.md** 🎨
-Guia aprofundado sobre animações:
-- Como as animações funcionam (passo a passo)
-- Transform vs transition
-- GPU acceleration
-- Timeline e debugging
-- Conceitos de performance
-
-### 3. **DRAG_HANDLE_FIX.md** 🔧
-Explicação da solução para isolamento de drag:
-- Problema de conflito entre drag e botões
-- Padrão drag handle
-- Event propagation
-- Testes práticos
 
 ---
 
@@ -195,8 +189,15 @@ Acesse `http://localhost:5174` no seu navegador (porta pode variar se 5173 já e
 1. Clique no botão "Excluir" no card (coluna Done)
 2. Tarefa é removida imediatamente
 
-### Dark Mode
-- O projeto detecta automaticamente `prefers-color-scheme` do sistema
+### Alternar Tema 🌓
+1. Clique no botão no **topo direito** (ao lado do título)
+2. Ícone alterna entre 🌙 (escuro) e ☀️ (claro)
+3. **Animação suave** — cores mudam com transição de 200ms
+4. **Preferência salva** — seu tema é lembrado na próxima visita
+5. **Automático** — na primeira visita, usa a preferência do sistema
+
+### Dark Mode Automático
+- Se você não clicar no toggle, o projeto detecta automaticamente `prefers-color-scheme` do sistema
 - Estilos mudam se seu SO estiver em dark mode
 
 ---
@@ -229,10 +230,13 @@ Este projeto foi desenvolvido como exercício de fixação dos fundamentos do Re
 - ✅ State lifting para componente pai
 - ✅ Context API como solução para prop drilling
 - ✅ CSS Modules para escalabilidade
+- ✅ **Custom Hooks** — reutilização de lógica com `useTheme()`
+- ✅ **Sistema de Tema** — CSS custom properties e localStorage
 - ✅ **Integração de biblioteca profissional** (dnd-kit)
+- ✅ **Design de Ícones** — lucide-react com animações SVG
 - ✅ **Padrões avançados** (drag handle, event propagation)
 - ✅ **Otimização de performance** (GPU acceleration, will-change)
-- ✅ **Acessibilidade** (teclado, sensores múltiplos)
+- ✅ **Acessibilidade** (teclado, sensores múltiplos, grab cursor)
 
 ---
 
