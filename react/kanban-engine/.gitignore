@@ -22,7 +22,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-DRAG_DROP_GUIDE.md
-ANIMATIONS_GUIDE.md
-FIX_SUMMARY.md
-DRAG_HANDLE_FIX.md
+DESENVOLVIMENTO.md
