@@ -1,4 +1,14 @@
 import { createContext, useEffect, useState } from "react"
+import {
+  DndContext,
+  closestCorners,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core"
+import { sortableKeyboardCoordinates } from "@dnd-kit/sortable"
 import TaskForm from "./TaskForm"
 import Column from "./Column"
 import styles from "../styles/KanbanBoard.module.css"
@@ -24,6 +34,16 @@ const loadTasks = () => {
 
 export const KanbanBoard = () => {
   const [tasks, setTasks] = useState(loadTasks)
+  const [activeId, setActiveId] = useState(null)
+
+  // Configurar sensores para detectar drag (mouse, touch, teclado)
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
 
   // Grava no localStorage toda vez que tasks mudar
   useEffect(() => {
@@ -47,16 +67,44 @@ export const KanbanBoard = () => {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  const handleDragStart = (event) => {
+    setActiveId(event.active.id)
+  }
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event
+    setActiveId(null)
+
+    if (over && active.id !== over.id) {
+      let newStatus = over.id
+      
+      // Se over.id é um número, é um card. Precisa encontrar sua coluna
+      if (typeof over.id === 'number') {
+        const overTask = tasks.find(t => t.id === over.id)
+        newStatus = overTask?.status || 'todo'
+      }
+      
+      handleNewStatus(active.id, newStatus)
+    }
+  }
+
   return (
     <div className={styles.board}>
-      <KanbanContext.Provider value={{ handleNewStatus, handleDeleteTask }}>
-        <TaskForm task={handleNewTask} />
-        <div className={styles.columns}>
-          <Column tasks={tasks} status="todo" label="To Do" />
-          <Column tasks={tasks} status="inProgress" label="Doing" />
-          <Column tasks={tasks} status="done" label="Done" />
-        </div>
-      </KanbanContext.Provider>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCorners}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <KanbanContext.Provider value={{ handleNewStatus, handleDeleteTask, activeId }}>
+          <TaskForm task={handleNewTask} />
+          <div className={styles.columns}>
+            <Column tasks={tasks} status="todo" label="To Do" />
+            <Column tasks={tasks} status="inProgress" label="Doing" />
+            <Column tasks={tasks} status="done" label="Done" />
+          </div>
+        </KanbanContext.Provider>
+      </DndContext>
     </div>
   )
 }

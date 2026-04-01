@@ -1,3 +1,8 @@
+import { useDroppable } from "@dnd-kit/core"
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable"
 import TaskItem from "./TaskItem"
 import styles from "../styles/Column.module.css"
 
@@ -8,13 +13,28 @@ const statusClass = {
 }
 
 const Column = ({ tasks, status, label }) => {
+  const { setNodeRef } = useDroppable({
+    id: status,
+  })
+
+  const columnTasks = tasks.filter((task) => task.status === status)
+  const taskIds = columnTasks.map((task) => task.id)
+
   return (
-    <div className={`${styles.column} ${statusClass[status]}`}>
+    <div
+      ref={setNodeRef}
+      className={`${styles.column} ${statusClass[status]}`}
+    >
       <h2 className={styles.title}>{label}</h2>
       <div className={styles.cards}>
-        {tasks.filter((task) => task.status === status).map((task) => (
-          <TaskItem key={task.id} task={task} status={status} />
-        ))}
+        <SortableContext
+          items={taskIds}
+          strategy={verticalListSortingStrategy}
+        >
+          {columnTasks.map((task) => (
+            <TaskItem key={task.id} task={task} status={status} />
+          ))}
+        </SortableContext>
       </div>
     </div>
   )
