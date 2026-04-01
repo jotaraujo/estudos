@@ -1,0 +1,34 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  transition: all 200ms ease;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-h);
+  transition: color 200ms ease;
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 1rem 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}
