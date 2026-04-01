@@ -31,20 +31,18 @@ const TaskItem = ({ task, status }) => {
       ref={setNodeRef}
       style={style}
       className={`${styles.card} ${isDragging ? styles.dragging : ''}`}
+      {...attributes}
+      {...listeners}
     >
-      {/* Área de Drag (apenas o header) */}
-      <div
-        className={styles.dragHandle}
-        {...attributes}
-        {...listeners}
-      >
-        <div className={styles.header}>
-          <p className={styles.title}>{task.title}</p>
-        </div>
+      {/* Header com Título */}
+      <div className={styles.header}>
+        <p className={styles.title}>{task.title}</p>
       </div>
 
-      {/* Conteúdo (não afetado pelo drag) */}
+      {/* Descrição */}
       <p className={styles.description}>{task.description}</p>
+
+      {/* Botões de Ação */}
       <div className={styles.actions}>
         {status === 'todo' && (
           <button
