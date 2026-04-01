@@ -1,17 +1,33 @@
 # 🗂️ Kanban Engine
 
-Uma aplicação de gerenciamento de tarefas no estilo Kanban, construída com React + Vite como exercício prático de aprendizado. Permite criar, mover entre colunas e excluir tarefas, com persistência automática via **LocalStorage**.
+Uma aplicação de gerenciamento de tarefas no estilo Kanban, construída com React + Vite como exercício prático de aprendizado. Permite criar, mover entre colunas e excluir tarefas, com persistência automática via **LocalStorage** e **drag & drop profissional** implementado com dnd-kit.
 
 ---
 
 ## ✨ Funcionalidades
 
+### 🎯 Gerenciamento de Tarefas
 - ✅ **Criar tarefas** com título e descrição
-- 🔄 **Mover tarefas** entre as colunas (To Do → Doing → Done)
-- 🗑️ **Excluir tarefas** individualmente
+- 🔄 **Mover tarefas** entre as colunas (To Do → Doing → Done) de **3 formas**:
+  - 🖱️ **Drag & Drop** — Arraste suavemente com animações
+  - 🔘 **Botões** — Clique para mover manualmente
+  - ⌨️ **Teclado** — Acessibilidade com navegação por teclado
+- 🗑️ **Excluir tarefas** individualmente ou quando concluídas
 - 💾 **Persistência automática** no LocalStorage — as tarefas sobrevivem ao refresh da página
 - 🌗 **Dark mode** automático via `prefers-color-scheme`
 - 📱 **Layout responsivo** — em telas menores, as colunas empilham verticalmente
+
+### ✨ Animações & UX
+- 🎬 **Animações fluidas** ao arrastar cards (150ms cubic-bezier)
+- 📦 **Layout animations** — cards se reorganizam suavemente
+- 🖱️ **Cursor feedback** — `grab` indica área arrastável, `grabbing` durante drag
+- ✨ **Visual feedback** — cards mudam opacidade e sombra durante drag
+- 🎯 **Collision detection** — detecta corretamente a coluna de destino
+
+### 🎮 Suporte a Múltiplos Inputs
+- 🖱️ **Mouse** — Drag & drop tradicional
+- 👉 **Touch** — Suporte completo para mobile/tablet
+- ⌨️ **Teclado** — TAB + ENTER/ESPAÇO para acessibilidade
 
 ---
 
@@ -27,13 +43,24 @@ As tarefas são organizadas em **3 colunas horizontais**:
 
 ## 🛠️ Tecnologias
 
-| Tecnologia | Uso |
-|---|---|
-| [React 19](https://react.dev/) | Biblioteca de UI |
-| [Vite](https://vitejs.dev/) | Bundler e servidor de desenvolvimento |
-| [CSS Modules](https://github.com/css-modules/css-modules) | Estilização com escopo local por componente |
-| LocalStorage API | Persistência de dados no navegador |
-| Context API | Compartilhamento de estado entre componentes |
+| Tecnologia | Versão | Uso |
+|---|---|---|
+| [React](https://react.dev/) | 19.2.4 | Biblioteca de UI |
+| [Vite](https://vitejs.dev/) | 8.0.1 | Bundler e servidor de desenvolvimento |
+| [dnd-kit](https://dndkit.com/) | 6.3.1 | Drag & drop moderno e acessível |
+| [CSS Modules](https://github.com/css-modules/css-modules) | - | Estilização com escopo local |
+| LocalStorage API | - | Persistência de dados |
+| Context API | - | Compartilhamento de estado |
+
+### Pacotes dnd-kit Instalados
+```json
+{
+  "@dnd-kit/core": "^6.3.1",        // Core drag & drop
+  "@dnd-kit/sortable": "^10.0.0",   // Reordenação de itens
+  "@dnd-kit/utilities": "^3.2.2",   // Utilitários (CSS.Transform)
+  "@dnd-kit/dom": "^0.3.2"          // DOM layer
+}
+```
 
 ---
 
@@ -45,10 +72,10 @@ src/
 ├── main.jsx
 ├── App.jsx
 ├── components/
-│   ├── KanbanBoard.jsx          # Gerencia o estado e a lógica das tarefas
-│   ├── Column.jsx               # Renderiza uma coluna filtrando por status
-│   ├── TaskItem.jsx             # Card individual de cada tarefa
-│   └── TaskForm.jsx             # Formulário para adicionar novas tarefas
+│   ├── KanbanBoard.jsx          # DndContext, sensores, estado das tarefas
+│   ├── Column.jsx               # Droppable container, filtra por status
+│   ├── TaskItem.jsx             # Sortable card com drag handle
+│   └── TaskForm.jsx             # Formulário para adicionar tarefas
 └── styles/
     ├── KanbanBoard.module.css
     ├── Column.module.css
@@ -58,20 +85,65 @@ src/
 
 ---
 
-## ⚙️ Conceitos praticados
+## ⚙️ Conceitos Praticados
 
-- **Componentes funcionais** e composição de componentes
+### React Fundamentals
+- **Componentes funcionais** e composição
 - **useState** — gerenciamento de estado local
-- **useEffect** — efeitos colaterais (sincronização com LocalStorage)
-- **useContext + createContext** — Context API para evitar prop drilling
+- **useEffect** — sincronização com LocalStorage
+- **useContext + createContext** — Context API
 - **Props e desestruturação**
-- **Renderização condicional** com `&&` e ternários
-- **CSS Modules** — escopo local de estilos sem conflito de nomes
-- **Lazy initialization** do `useState` para leitura eficiente do LocalStorage
+- **Renderização condicional**
+- **CSS Modules** — escopo local de estilos
+
+### Drag & Drop com dnd-kit
+- **DndContext** — configuração de sensores e detecção de colisão
+- **useSortable** — itens draggáveis com animação
+- **useDroppable** — containers para receber itens
+- **SortableContext** — contexto para reordenação
+- **Sensors** — suporte a mouse, touch e teclado
+- **Transform & CSS** — animações GPU-aceleradas
+- **Event handling** — `stopPropagation()` para evitar conflitos
+- **Drag handle pattern** — isolamento de área arrastável
+
+### Performance & UX
+- **GPU acceleration** com `transform` (não top/left)
+- **cubic-bezier easing** — animações naturais
+- **will-change** — otimização de performance
+- **Lazy initialization** — leitura eficiente do localStorage
+- **Collision detection** — closestCorners algorithm
 
 ---
 
-## 🚀 Como rodar localmente
+## 📖 Documentação do Projeto
+
+O projeto inclui **3 guias detalhados** em Markdown:
+
+### 1. **DRAG_DROP_GUIDE.md** 📚
+Introdução completa ao dnd-kit:
+- Arquitetura e componentes principais
+- Como funciona o sistema de drag & drop
+- Padrão de implementação no Kanban
+- Próximos passos opcionais
+
+### 2. **ANIMATIONS_GUIDE.md** 🎨
+Guia aprofundado sobre animações:
+- Como as animações funcionam (passo a passo)
+- Transform vs transition
+- GPU acceleration
+- Timeline e debugging
+- Conceitos de performance
+
+### 3. **DRAG_HANDLE_FIX.md** 🔧
+Explicação da solução para isolamento de drag:
+- Problema de conflito entre drag e botões
+- Padrão drag handle
+- Event propagation
+- Testes práticos
+
+---
+
+## 🚀 Como Rodar Localmente
 
 **Pré-requisitos:** Node.js 18+
 
@@ -89,19 +161,87 @@ npm install
 npm run dev
 ```
 
-Acesse `http://localhost:5173` no seu navegador.
+Acesse `http://localhost:5174` no seu navegador (porta pode variar se 5173 já estiver em uso).
+
+---
+
+## 🧪 Como Usar
+
+### Criar uma Tarefa
+1. Digite o título e descrição no formulário no topo
+2. Clique em "Criar tarefa"
+3. A tarefa aparece na coluna "To Do"
+
+### Mover uma Tarefa
+
+**Opção 1: Drag & Drop** 🖱️
+1. Passe o mouse sobre o **título** do card
+2. Cursor muda para `grab` —  clique e arraste
+3. Solte sobre a coluna desejada
+4. Animação suave leva para o novo lugar
+
+**Opção 2: Botões** 🔘
+1. Clique nos botões do card:
+   - `→ Doing` — To Do → Doing
+   - `← To Do` — Doing → To Do
+   - `→ Done` — Doing → Done
+   - `← Doing` — Done → Doing
+
+**Opção 3: Teclado** ⌨️
+1. Use Tab para navegar até um card
+2. Use Enter/Espaço para ativar ações (quando implementado)
+
+### Excluir uma Tarefa
+1. Clique no botão "Excluir" no card (coluna Done)
+2. Tarefa é removida imediatamente
+
+### Dark Mode
+- O projeto detecta automaticamente `prefers-color-scheme` do sistema
+- Estilos mudam se seu SO estiver em dark mode
+
+---
+
+## 💡 Exemplos de Casos de Uso
+
+```javascript
+// Mover tarefa por ID (programaticamente)
+handleNewStatus(taskId, 'inProgress')
+
+// Obter tarefas de uma coluna específica
+const todoTasks = tasks.filter(t => t.status === 'todo')
+
+// Estrutura de uma tarefa
+const task = {
+  id: 1704067200000,           // Timestamp único
+  title: "Implementar drag drop",
+  description: "Usar dnd-kit",
+  status: "inProgress"          // 'todo' | 'inProgress' | 'done'
+}
+```
 
 ---
 
 ## 📚 Aprendizados
 
-Este projeto foi desenvolvido como exercício de fixação dos fundamentos do React, com foco em:
+Este projeto foi desenvolvido como exercício de fixação dos fundamentos do React com foco em:
 
-- Entender o fluxo unidirecional de dados (one-way data flow)
-- Praticar o levantamento de estado (_state lifting_) para o componente pai
-- Aplicar Context API como solução para prop drilling em árvores de componentes
-- Organizar estilos de forma escalável com CSS Modules
+- ✅ Fluxo unidirecional de dados (one-way data flow)
+- ✅ State lifting para componente pai
+- ✅ Context API como solução para prop drilling
+- ✅ CSS Modules para escalabilidade
+- ✅ **Integração de biblioteca profissional** (dnd-kit)
+- ✅ **Padrões avançados** (drag handle, event propagation)
+- ✅ **Otimização de performance** (GPU acceleration, will-change)
+- ✅ **Acessibilidade** (teclado, sensores múltiplos)
 
 ---
 
-*Desenvolvido por [João Paulo Araujo](https://github.com/jotaraujo) · Exercícios de React*
+## 🎓 Versão & Status
+
+- **Versão:** 0.0.0 (Projeto educacional)
+- **Status:** ✅ Funcional com todas as features
+- **Última atualização:** Abril 2026
+
+---
+
+*Desenvolvido por [João Paulo Araujo](https://github.com/jotaraujo) · Exercícios de React com Drag & Drop profissional*
