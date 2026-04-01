@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { useSortable, defaultAnimateLayoutChanges } from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
+import { useSortable, defaultAnimateLayoutChanges } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import { KanbanContext } from './KanbanBoard'
 import styles from '../styles/TaskItem.module.css'
 
@@ -13,7 +13,7 @@ const TaskItem = ({ task, status }) => {
     transform,
     transition,
     isDragging,
-  } = useSortable({ 
+  } = useSortable({
     id: task.id,
     animateLayoutChanges: defaultAnimateLayoutChanges,
   })
@@ -34,15 +34,12 @@ const TaskItem = ({ task, status }) => {
       {...attributes}
     >
       {/* Header com Título — DRAG HANDLE */}
-      <div 
-        className={styles.header}
-        {...listeners}
-      >
+      <div className={styles.header} {...listeners}>
         <p className={styles.title}>{task.title}</p>
-      </div>
 
-      {/* Descrição */}
-      <p className={styles.description}>{task.description}</p>
+        {/* Descrição */}
+        <p className={styles.description}>{task.description}</p>
+      </div>
 
       {/* Botões de Ação */}
       <div className={styles.actions}>
