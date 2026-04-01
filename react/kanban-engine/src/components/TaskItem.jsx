@@ -32,10 +32,12 @@ const TaskItem = ({ task, status }) => {
       style={style}
       className={`${styles.card} ${isDragging ? styles.dragging : ''}`}
       {...attributes}
-      {...listeners}
     >
-      {/* Header com Título */}
-      <div className={styles.header}>
+      {/* Header com Título — DRAG HANDLE */}
+      <div 
+        className={styles.header}
+        {...listeners}
+      >
         <p className={styles.title}>{task.title}</p>
       </div>
 
@@ -48,10 +50,7 @@ const TaskItem = ({ task, status }) => {
           <button
             className={`${styles.btn} ${styles.btnMove}`}
             type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              handleNewStatus(task.id, 'inProgress')
-            }}
+            onClick={() => handleNewStatus(task.id, 'inProgress')}
           >
             → Doing
           </button>
@@ -61,20 +60,14 @@ const TaskItem = ({ task, status }) => {
             <button
               className={`${styles.btn} ${styles.btnBack}`}
               type="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleNewStatus(task.id, 'todo')
-              }}
+              onClick={() => handleNewStatus(task.id, 'todo')}
             >
               ← To Do
             </button>
             <button
               className={`${styles.btn} ${styles.btnMove}`}
               type="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleNewStatus(task.id, 'done')
-              }}
+              onClick={() => handleNewStatus(task.id, 'done')}
             >
               → Done
             </button>
@@ -85,20 +78,14 @@ const TaskItem = ({ task, status }) => {
             <button
               className={`${styles.btn} ${styles.btnBack}`}
               type="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleNewStatus(task.id, 'inProgress')
-              }}
+              onClick={() => handleNewStatus(task.id, 'inProgress')}
             >
               ← Doing
             </button>
             <button
               className={`${styles.btn} ${styles.btnDelete}`}
               type="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleDeleteTask(task.id)
-              }}
+              onClick={() => handleDeleteTask(task.id)}
             >
               Excluir
             </button>
